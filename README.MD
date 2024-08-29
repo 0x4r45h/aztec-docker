@@ -10,7 +10,7 @@ change env variables inside .env file
 to run prover node
 
 ```bash
-docker compose --profile prover up -d 
+docker compose up -d aztec-prover
 ```
 
 ### Prover Agent
@@ -18,5 +18,5 @@ docker compose --profile prover up -d
 to run prover agent on the same machine as Prover Node keep the `AZTEC_PROVER_NODE_URL` empty, otherwise set the public address of Prover Node.
 
 ```bash
-docker compose --profile agent up -d
+docker compose up -d prover-agent
 ```

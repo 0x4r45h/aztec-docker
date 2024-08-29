@@ -10,8 +10,6 @@ services:
     image: "aztecprotocol/${IMAGE:-aztec:master}"
     ports:
       - "${PROVER_NODE_PORT}:80"
-    profiles:
-      - prover
     environment:
       AZTEC_PORT: 80
       LOG_LEVEL: verbose
@@ -37,14 +35,12 @@ services:
     command: [ "start", "--prover-node", "--archiver" ]
     restart: on-failure
     networks:
-      - aztec
+      aztec:
 
   # Prover agent that connects to the prover-node for fetching proving jobs and executing them
   # Multiple instances can be run, or PROVER_AGENT_CONCURRENCY can be increased to run multiple workers in a single instance
-  aztec-prover-agent:
+  prover-agent:
     image: "aztecprotocol/${IMAGE:-aztec:master}"
-    profiles:
-      - agent
     environment:
       LOG_JSON: true
       LOG_LEVEL: verbose
@@ -55,9 +51,9 @@ services:
     command: [ "start", "--prover" ]
     restart: on-failure
     networks:
-      - aztec
+      aztec:
 
 volumes:
   prover_node_data:
 networks:
-  - aztec:
+  aztec:
