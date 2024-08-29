@@ -10,7 +10,7 @@ change env variables inside .env file
 to run prover node
 
 ```bash
-docker compose up -d aztec-prover
+docker compose up -d prover-node
 ```
 
 ### Prover Agent

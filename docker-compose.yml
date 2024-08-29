@@ -1,7 +1,3 @@
-# Template for simulating a provernet-like setup using docker-compose, currently unused except for development or testing.
-# Spins up an aztec node with a sequencer, a transactions bot, and a prover node with a separate prover agent.
-# Logs latest block numbers every 10 seconds.
-name: aztec-provernet
 services:
   # Prover node that listens for unproven blocks on L1, and generates and submits block proofs
   # Requires one or more agents to be connected for actually generating proofs
