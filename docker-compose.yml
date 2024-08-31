@@ -3,7 +3,7 @@ services:
   # Requires one or more agents to be connected for actually generating proofs
   # Fetches individual tx proofs from the aztec-node directly
   prover-node:
-    image: "aztecprotocol/${IMAGE:-aztec:master}"
+    image: "aztecprotocol/${IMAGE:-aztec:provernet}"
     ports:
       - "${PROVER_NODE_PORT}:80"
     environment:
@@ -36,7 +36,7 @@ services:
   # Prover agent that connects to the prover-node for fetching proving jobs and executing them
   # Multiple instances can be run, or PROVER_AGENT_CONCURRENCY can be increased to run multiple workers in a single instance
   prover-agent:
-    image: "aztecprotocol/${IMAGE:-aztec:master}"
+    image: "aztecprotocol/${IMAGE:-aztec:provernet}"
     environment:
       LOG_JSON: true
       LOG_LEVEL: verbose
