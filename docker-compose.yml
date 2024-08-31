@@ -4,6 +4,7 @@ services:
   # Fetches individual tx proofs from the aztec-node directly
   prover-node:
     image: "aztecprotocol/${IMAGE:-aztec:provernet}"
+    pull_policy: always
     ports:
       - "${PROVER_NODE_PORT}:80"
     environment:
@@ -29,7 +30,7 @@ services:
       timeout: 30s
       start_period: 10s
     command: [ "start", "--prover-node", "--archiver" ]
-    restart: on-failure
+    restart: unless-stopped
     networks:
       aztec:
 
@@ -37,6 +38,7 @@ services:
   # Multiple instances can be run, or PROVER_AGENT_CONCURRENCY can be increased to run multiple workers in a single instance
   prover-agent:
     image: "aztecprotocol/${IMAGE:-aztec:provernet}"
+    pull_policy: always
     environment:
       LOG_JSON: true
       LOG_LEVEL: verbose
@@ -45,7 +47,7 @@ services:
       SKIP_PORT_ASSIGNMENT: 1
       PROVER_AGENTS: 1
     command: [ "start", "--prover" ]
-    restart: on-failure
+    restart: unless-stopped
     networks:
       aztec:
 
