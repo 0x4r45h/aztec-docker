@@ -16,7 +16,7 @@ services:
     volumes:
       - type: volume
         source: node-storage
-        target: /usr/src/yarn-project
+        target: /root/aztec-world-state
     environment:
       P2P_UDP_ANNOUNCE_ADDR: "${PUBLIC_IP}:${P2P_PORT}"
       P2P_TCP_ANNOUNCE_ADDR: "${PUBLIC_IP}:${P2P_PORT}"
@@ -50,6 +50,7 @@ services:
       OUTBOX_CONTRACT_ADDRESS: "0x1016b5aaa3270a65c315c664ecb238b6db270b64"
       P2P_UDP_LISTEN_ADDR: "0.0.0.0:${P2P_PORT}"
       P2P_TCP_LISTEN_ADDR: "0.0.0.0:${P2P_PORT}"
+      DATA_DIRECTORY: "/root/aztec-world-state"
     command: ["start", "--node", "--archiver", "--sequencer"]
 networks:
   aztec-sp:
