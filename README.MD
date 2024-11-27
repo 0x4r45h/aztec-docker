@@ -1,4 +1,12 @@
-# Aztec Prover Contest
+# Aztec S&P Contest - In progress
+the files are located under `sp` directory
+just copy the .env.sample file to .env and edit it accordingly. then run 
+```bash
+docker compose up -d aztec-node
+```
+
+
+# Aztec Prover Contest  - Finished
 ### Init
 copy .env.sample to .env file
 
