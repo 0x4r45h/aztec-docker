@@ -8,13 +8,15 @@ services:
         max-file: "5"
     restart: unless-stopped
     ports:
-      - "${P2P_PORT}:${P2P_PORT}"
+      - "${P2P_PORT}:${P2P_PORT}/tcp"
+      - "${P2P_PORT}:${P2P_PORT}/udp"
+      - "${NODE_PORT}:${NODE_PORT}"
     networks:
       aztec-sp:
     volumes:
       - type: volume
         source: node-storage
-        target: /
+        target: /usr/src/yarn-project
     environment:
       P2P_UDP_ANNOUNCE_ADDR: "${PUBLIC_IP}:${P2P_PORT}"
       P2P_TCP_ANNOUNCE_ADDR: "${PUBLIC_IP}:${P2P_PORT}"
