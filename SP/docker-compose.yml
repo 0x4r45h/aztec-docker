@@ -6,6 +6,9 @@ services:
       options:
         max-size: "12m"
         max-file: "5"
+    restart: unless-stopped
+    networks:
+      aztec-sp:
     environment:
       P2P_UDP_ANNOUNCE_ADDR: "${PUBLIC_IP}:${P2P_PORT}"
       P2P_TCP_ANNOUNCE_ADDR: "${PUBLIC_IP}:${P2P_PORT}"
