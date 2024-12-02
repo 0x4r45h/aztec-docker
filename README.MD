@@ -1,6 +1,12 @@
 # Aztec S&P Contest - In progress
 the files are located under `sp` directory
-just copy the .env.sample file to .env and edit it accordingly. then run 
+just copy the .env.sample file to .env and edit it accordingly.
+to generate a PEER_ID_PRIVATE_KEY , use aztec-cli 
+
+```bash
+aztec generate-p2p-private-key
+```
+then run 
 ```bash
 docker compose up -d aztec-node
 ```

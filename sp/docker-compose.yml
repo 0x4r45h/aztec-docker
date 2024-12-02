@@ -24,7 +24,7 @@ services:
       VALIDATOR_DISABLED: "false"
       VALIDATOR_PRIVATE_KEY: "${VALIDATOR_PKEY}"
       SEQ_PUBLISHER_PRIVATE_KEY: "${VALIDATOR_PKEY}"
-      PEER_ID_PRIVATE_KEY: "${VALIDATOR_PKEY}"
+      PEER_ID_PRIVATE_KEY: "${PEER_ID_PRIVATE_KEY}"
       L1_PRIVATE_KEY: "${VALIDATOR_PKEY}"
       DEBUG: "aztec:*,-aztec:avm_simulator*,-aztec:circuits:artifact_hash,-aztec:libp2p_service,-json-rpc*,-aztec:world-state:database,-aztec:l2_block_stream*"
       LOG_LEVEL: "debug"
