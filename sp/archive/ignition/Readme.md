@@ -1,0 +1,1 @@
+use the uploader script to sync all files over the server

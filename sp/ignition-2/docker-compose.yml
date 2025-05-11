@@ -1,0 +1,46 @@
+x-logging: &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: 100m
+      max-file: "3"
+      tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
+
+services:
+  validator:
+    restart: unless-stopped
+    stop_grace_period: 1m
+    image: ${AZTEC_REPO:-aztecprotocol/aztec}:${AZTEC_TAG:-0.85.0-alpha-testnet.9}
+    pull_policy: missing
+    env_file:
+      - .env
+    networks:
+      - aztec
+      - sepolia-docker_default
+    volumes:
+      - aztec-validator-data:/data
+    ports:
+      - ${VALIDATOR_P2P_PORT}:${VALIDATOR_P2P_PORT}/udp
+      - ${VALIDATOR_P2P_PORT}:${VALIDATOR_P2P_PORT}/tcp
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL}
+      BLOB_SINK_URL: ${BLOB_SINK_URL}
+      COINBASE: ${COINBASE}
+      DATA_DIRECTORY: /data
+      P2P_PORT: ${VALIDATOR_P2P_PORT}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: >
+      node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js
+      start --network ${NETWORK} --p2p.p2pIp ${PUBLIC_IP_ADDRESS:?error}
+      --p2p.p2pPort ${VALIDATOR_P2P_PORT} --l1-rpc-urls ${L1_RPC} --l1-consensus-host-urls ${L1_CONSENSUS_HOST_URL}
+      --sequencer.validatorPrivateKey ${VALIDATOR_PRIVATE_KEY}
+      --node --archiver --sequencer
+    <<: *logging
+
+volumes:
+  aztec-validator-data:
+networks:
+  sepolia-docker_default:
+    external: true
+  aztec:

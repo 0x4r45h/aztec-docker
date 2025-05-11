@@ -1,0 +1,18 @@
+services:
+    validator:
+        network_mode: host
+        restart: unless-stopped
+        env_file: .env
+        image: aztecprotocol/aztec:troll-turtle
+        entrypoint: >
+            sh -c '
+
+            test -z "$PEER_ID_PRIVATE_KEY" -a ! -f /var/lib/aztec/p2p-private-key && node /usr/src/yarn-project/aztec/dest/bin/index.js generate-p2p-private-key | head -1 | cut -d" " -f 3 | tee /var/lib/aztec/p2p-private-key || echo "Re-using existing P2P private key"
+            test -z "$PEER_ID_PRIVATE_KEY" && export PEER_ID_PRIVATE_KEY=$(cat /var/lib/aztec/p2p-private-key)
+
+            node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --node --archiver --sequencer'
+        volumes:
+            - aztec_data:/var/lib/aztec
+
+volumes:
+    aztec_data:
