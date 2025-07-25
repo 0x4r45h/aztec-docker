@@ -1,3 +1,6 @@
+# since 1.1.2
+only val1 is required , it will run 10 validators under one process
+the archiver is also our full node for the telegram bot
 # my own path
 use uploader.sh to upload .env and docker compsoe file, then run each compose file
 

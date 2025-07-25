@@ -1,0 +1,13 @@
+services:
+  validator:
+    command: >
+      node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js
+      start --network ${NETWORK}
+      --p2p.p2pIp ${PUBLIC_IP_ADDRESS:?error}
+      --p2p.p2pPort ${VALIDATOR_P2P_PORT}
+      --l1-rpc-urls ${L1_RPC}
+      --l1-consensus-host-urls ${L1_CONSENSUS_HOST_URL}
+      --node
+      --archiver
+    ports:
+      - "15001:8080"

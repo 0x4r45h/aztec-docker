@@ -25,18 +25,23 @@ services:
     environment:
       LOG_LEVEL: ${LOG_LEVEL}
       BLOB_SINK_URL: ${BLOB_SINK_URL}
-      COINBASE: ${COINBASE}
       DATA_DIRECTORY: /data
-      P2P_PORT: ${VALIDATOR_P2P_PORT}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     entrypoint: []
     command: >
       node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js
-      start --network ${NETWORK} --p2p.p2pIp ${PUBLIC_IP_ADDRESS:?error}
-      --p2p.p2pPort ${VALIDATOR_P2P_PORT} --l1-rpc-urls ${L1_RPC} --l1-consensus-host-urls ${L1_CONSENSUS_HOST_URL}
-      --sequencer.validatorPrivateKey ${VALIDATOR_PRIVATE_KEY}
-      --node --archiver --sequencer
+      start --network ${NETWORK}
+      --p2p.p2pIp ${PUBLIC_IP_ADDRESS:?error}
+      --p2p.p2pPort ${VALIDATOR_P2P_PORT}
+      --l1-rpc-urls ${L1_RPC}
+      --l1-consensus-host-urls ${L1_CONSENSUS_HOST_URL}
+      --sequencer.validatorPrivateKeys ${VALIDATOR_PRIVATE_KEYS}
+      --sequencer.publisherPrivateKey ${VALIDATOR_PUBLISHER_PRIVATE_KEY}
+      --sequencer.coinbase ${COINBASE}
+      --node
+      --archiver
+      --sequencer
     <<: *logging
 
 volumes:
